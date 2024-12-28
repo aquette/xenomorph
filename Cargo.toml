@@ -38,3 +38,18 @@ tempfile = "3.14.0"
 strip = true
 opt-level = "z"
 lto = "thin"
+
+[package.metadata.deb]
+maintainer = "Arnaud Quette <aquette@debian.org>"
+copyright = "2023-2024, Leah Amelia Chen <hi@pluie.me>"
+extended-description = """A tool that converts software packages to work from one package manager to the next, originating as a rewrite of the classic alien script."""
+depends = "$auto"
+section = "utility"
+priority = "optional"
+replaces = "alien"
+provides = "alien"
+suggests = "rpm"
+assets = [
+ ["target/release/xenomorph", "usr/bin/", "755"],
+ ["README.md", "usr/share/doc/xenomorph/", "644"],
+]
