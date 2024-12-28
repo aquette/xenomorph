@@ -1,0 +1,23 @@
+name: build-code-and-packages
+run-name: Build code and packages
+on: [push]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Base setup for Ubuntu
+        id: ubuntu-setup
+        run: apt install cargo rpm && cargo install cargo-deb
+      - name: Base build for Ubuntu
+        id: ubuntu-build
+        run: cargo build --release
+      - name: Debian build for Ubuntu
+        id: ubuntu-deb-build
+        run: cargo deb
+      - name: Test RPM xenormorphing
+        if: steps.ubuntu-deb-build.outcome == 'success'
+        run: xenomorph -r target/debian/xenomorph*.deb
+      - name: Publish
+        run: echo "Publish packages"
