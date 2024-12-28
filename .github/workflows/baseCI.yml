@@ -15,9 +15,9 @@ jobs:
         run: cargo build --release
       - name: Debian build for Ubuntu
         id: ubuntu-deb-build
-        run: export PATH=$PATH:/root/.cargo/bin ; cargo deb
+        run: export PATH=$PATH:/root/.cargo/bin ; cargo --list && cargo deb
       - name: Test RPM xenormorphing
         if: steps.ubuntu-deb-build.outcome == 'success'
-        run: xenomorph -r target/debian/xenomorph*.deb
+        run: xenomorph -r target/debian/xenomorph*.deb &&  rpm -ivh  --test ./xenomorph*.rpm
       - name: Publish
         run: echo "Publish packages"
