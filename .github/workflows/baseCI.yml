@@ -13,16 +13,16 @@ jobs:
       - name: Base build for Ubuntu
         id: ubuntu-build
         run: cargo build --release
-      - name: Debian build for Ubuntu
+      - name: Debian xenomorph build and install for Ubuntu
         id: ubuntu-deb-build
         run: export PATH=$PATH:~/.cargo/bin ; cargo --list && ls -l ~/.cargo/bin/ && cargo deb && sudo dpkg -i target/debian/xenomorph*.deb
-      - name: Test RPM xenormorphing
+      - name: Test self RPM xenormorphing
         if: steps.ubuntu-deb-build.outcome == 'success'
         run: xenomorph -r target/debian/xenomorph*.deb
       # Expected to fail! RPMs can't be installed due to deps limitations.
-      - name: Test RPM installation
+      - name: Test xenomorph RPM installation
         if: steps.ubuntu-deb-build.outcome == 'success'
-        run: rpm -ivh  --test ./xenomorph*.rpm
+        run: rpm -ivh  --test ./xenomorph*.rpm || true
       - name: Publish
         if: always()
         run: echo "Publish packages"
