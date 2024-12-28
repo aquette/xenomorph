@@ -6,7 +6,6 @@ description = """Shapeshift between package formats"""
 homepage = "https://github.com/pluiedev/xenomorph"
 repository = "https://github.com/pluiedev/xenomorph"
 license = "GPL-2.0-or-later"
-license-file = "LICENSE"
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
