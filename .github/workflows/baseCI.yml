@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Base setup for Ubuntu
         id: ubuntu-setup
-        run: sudo apt install cargo rpm && sudo cargo install cargo-deb
+        run: sudo apt install cargo rpm && cargo install cargo-deb
       - name: Base build for Ubuntu
         id: ubuntu-build
         run: cargo build --release
       - name: Debian build for Ubuntu
         id: ubuntu-deb-build
-        run: export PATH=$PATH:/root/.cargo/bin ; cargo --list && ls -l /root/.cargo/bin/ && cargo deb
+        run: export PATH=$PATH:~/.cargo/bin ; cargo --list && ls -l ~/.cargo/bin/ && cargo deb
       - name: Test RPM xenormorphing
         if: steps.ubuntu-deb-build.outcome == 'success'
         run: xenomorph -r target/debian/xenomorph*.deb &&  rpm -ivh  --test ./xenomorph*.rpm
