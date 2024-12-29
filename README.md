@@ -25,6 +25,42 @@ had been effectively dead for over twenty years with little surviving records of
 `xenomorph`'s CLI interface, while currently compatible with `alien`, may change in the future,
 and so will the packages it generates.
 
+## How to build `xenomorph`
+
+To build `xenomorph`, you need to install the RUST toolchain.
+For example, on a Debian or derivative (like Ubuntu), use:
+> sudo apt install cargo
+
+Note: in order to fix build dependencies on Ubuntu 22.04, you will to:
+> cargo update home@0.5.11 --precise 0.5.9
+
+Now, to actually build `xenomorph`, simply use:
+> cargo build --release
+
+And to launch it, use:
+> ./target/release/xenomorph
+
+## How to use `xenomorph`
+
+> Usage: xenomorph [options] file [...]
+
+To get additional help, refer to:
+> xenomorph -h
+
+## How to build `xenomorph` Debian package using cargo-deb
+
+Additionally, if you want to package `xenomorph` as a .deb using cargo-deb, first install cargo-deb using:
+> cargo install cargo-deb
+
+Then build the .deb using:
+> cargo deb
+
+Note: before running cargo-deb, don't forget to add ~/.cargo/bin to your PATH, for example using:
+> export PATH=$PATH:~/.cargo/bin
+
+You can then install the package using:
+> sudo dpkg -i target/debian/xenomorph*.deb
+
 ## Known Issues
 
  - Names need to be mapped from `.rpm` to `.deb` - in particular, `.deb` package
